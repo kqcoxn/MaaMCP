@@ -1,4 +1,5 @@
 import atexit
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -118,6 +119,24 @@ def find_window_list() -> list[str]:
     for window in window_list:
         object_registry.register_by_name(window.window_name, window)
     return [window.window_name for window in window_list if window.window_name]
+
+
+@mcp.tool(
+    name="wait",
+    description="""
+    等待指定的时间（秒）。
+    当需要等待界面加载、动画完成或操作生效时，以及其他需要等待的情况下使用。
+    注意：由于客户端超时限制，单次等待最长支持 60 秒。如果需要等待更长时间，请多次调用。
+    """,
+)
+def wait(seconds: float) -> str:
+    max_wait = 60.0
+    if seconds > max_wait:
+        time.sleep(max_wait)
+        return f"已等待 {max_wait} 秒（单次最大限制）。请再次调用 wait 以继续等待剩余时间。"
+    
+    time.sleep(seconds)
+    return f"已等待 {seconds} 秒"
 
 
 @mcp.tool(
