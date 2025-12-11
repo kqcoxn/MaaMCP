@@ -69,7 +69,7 @@ MaaMCP 是一个 Model Context Protocol 服务器，将 MaaFramework 的强大�
 
 1. **克隆仓库**
    ```bash
-   git clone https://github.com/yourusername/MaaMCP.git
+   git clone https://github.com/MistEO/MaaMCP.git
    cd MaaMCP
    ```
 
