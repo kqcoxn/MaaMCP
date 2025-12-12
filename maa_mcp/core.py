@@ -40,7 +40,8 @@ mcp = FastMCP(
        - 可连接多个设备/窗口，每个连接返回独立的控制器 ID
 
     2. 资源初始化
-       - 调用 load_resource(resource_path) 加载资源包（OCR 模型等）
+       - 先调用 check_and_download_ocr() 检查 OCR 模型是否存在，不存在会自动下载
+       - 再调用 load_resource(resource_path) 加载资源包
        - 资源路径应指向包含 resource/model/*.onnx 的目录（通常为项目 assets/resource 目录）
        - 资源只需加载一次，可供多个设备共享使用
 

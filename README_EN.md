@@ -73,19 +73,7 @@ MaaMCP is a Model Context Protocol server that exposes MaaFramework's powerful a
     cd MaaMCP
     ```
 
-2. **Download OCR models** (large files, may take time)
-
-    ```bash
-    git submodule update --init --recursive
-    ```
-
-3. **Configure OCR models**
-
-    ```bash
-    python configure.py
-    ```
-
-4. **Install Python dependencies**
+2. **Install Python dependencies**
 
     ```bash
     pip install -r maa_mcp/requirements.txt

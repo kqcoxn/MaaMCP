@@ -75,21 +75,7 @@ Talk is cheap, 请看: **[🎞️ Bilibili 视频演示](https://www.bilibili.co
     cd MaaMCP
     ```
 
-2. **下载 OCR 模型**（大文件，可能需要一些时间）
-
-    ```bash
-    git submodule update --init --recursive
-    ```
-
-    如果 git 下载失败，可前往 [Mirror酱](https://mirrorchyan.com/zh/projects?rid=MaaCommonAssets) 手动下载后解压到 `assets/MaaCommonAssets`。
-
-3. **配置 OCR 模型**
-
-    ```bash
-    python configure.py
-    ```
-
-4. **安装 Python 依赖**
+2. **安装 Python 依赖**
 
     ```bash
     pip install -r maa_mcp/requirements.txt

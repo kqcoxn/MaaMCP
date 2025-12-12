@@ -23,8 +23,9 @@ from maa_mcp.core import mcp, object_registry
     - 成功：返回资源 ID（字符串），用于后续 OCR 等操作
     - 失败：返回 None（路径不存在或资源加载失败）
 
-    前置检查：
-    调用前应验证路径存在性，若路径不存在，需提示用户先配置资源文件。
+    前置条件（重要）：
+    调用此方法前，必须先调用 check_and_download_ocr() 确保 OCR 模型文件存在。
+    如果 OCR 模型不存在，此方法会加载失败。
 """,
 )
 def load_resource(resource_path: str) -> Optional[str]:
