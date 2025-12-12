@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD033 MD041 -->
+<!-- markdownlint-disable MD033 MD041 MD024 -->
 <p align="center">
   <img alt="LOGO" src="https://cdn.jsdelivr.net/gh/MaaAssistantArknights/design@main/logo/maa-logo_512x512.png" width="256" height="256" />
 </p>
@@ -95,31 +95,9 @@ Talk is cheap, 请看: **[🎞️ Bilibili 视频演示](https://www.bilibili.co
 
 4. **安装 Python 依赖**
 
-    **重要**：MCP 客户端需要能够访问这些依赖。有两种安装方式：
-
-    **方式 A：全局安装（推荐，适用于所有 MCP 客户端）**
-
     ```bash
-    pip install maafw fastmcp opencv-python
+    pip install -r mcp_server/requirements.txt
     ```
-
-    **方式 B：虚拟环境安装（需要在配置中指定虚拟环境的 Python 路径）**
-
-    ```bash
-    # 创建虚拟环境
-    python -m venv .venv
-
-    # 激活虚拟环境
-    # Windows:
-    .venv\Scripts\activate
-    # macOS/Linux:
-    source .venv/bin/activate
-
-    # 安装依赖
-    pip install maafw fastmcp opencv-python
-    ```
-
-    如果使用方式 B，需要在后续 MCP 配置中使用虚拟环境的 Python 路径。
 
 #### 配置 MCP 客户端
 
@@ -149,20 +127,6 @@ Talk is cheap, 请看: **[🎞️ Bilibili 视频演示](https://www.bilibili.co
 }
 ```
 
-**使用虚拟环境（方式 B）：**
-
-```json
-{
-  "mcpServers": {
-    "maa": {
-      "command": "C:/path/to/MaaMCP/.venv/Scripts/python.exe",
-      "args": ["-m", "mcp_server"],
-      "cwd": "C:/path/to/MaaMCP"
-    }
-  }
-}
-```
-
 ##### Cursor IDE
 
 在项目根目录创建或编辑 `.cursor/mcp.json`：
@@ -181,20 +145,6 @@ Talk is cheap, 请看: **[🎞️ Bilibili 视频演示](https://www.bilibili.co
 }
 ```
 
-**使用虚拟环境（方式 B）：**
-
-```json
-{
-  "mcpServers": {
-    "MAA MCP": {
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-      "args": ["-m", "mcp_server"],
-      "cwd": "${workspaceFolder}"
-    }
-  }
-}
-```
-
 ##### Claude Code CLI
 
 在项目根目录创建或编辑 `.claude/settings.local.json`：
@@ -206,20 +156,6 @@ Talk is cheap, 请看: **[🎞️ Bilibili 视频演示](https://www.bilibili.co
   "mcpServers": {
     "maa": {
       "command": "python",
-      "args": ["-m", "mcp_server"],
-      "cwd": "${workspaceFolder}"
-    }
-  }
-}
-```
-
-**使用虚拟环境（方式 B）：**
-
-```json
-{
-  "mcpServers": {
-    "maa": {
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
       "args": ["-m", "mcp_server"],
       "cwd": "${workspaceFolder}"
     }
@@ -315,20 +251,6 @@ MaaMCP/
 └── check_resource.py        # 资源验证工具
 ```
 
-#### 验证资源文件
-
-```bash
-python check_resource.py assets/resource
-```
-
-#### 构建发布包
-
-```bash
-python install.py v1.0.0
-```
-
-构建的发布包将位于 `install/` 目录。
-
 ### 安全说明
 
 ⚠️ **重要安全约束**：
@@ -346,39 +268,6 @@ python install.py v1.0.0
 1. 检查 `assets/MaaCommonAssets/OCR` 目录是否存在
 2. 重新运行 `python configure.py`
 3. 验证 `assets/resource/model/ocr` 目录包含模型文件
-
-#### Python 命令无反应
-
-Windows 10/11 自带的 "Python" 只是安装器。请从 [python.org](https://www.python.org/) 下载并安装完整版 Python。
-
-#### 缺少 vc_redist 运行库
-
-下载并安装 [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe)。
-
-#### MCP 服务器连接失败或报错 "ModuleNotFoundError"
-
-这通常是因为 MCP 客户端使用的 Python 环境中没有安装必要的依赖。
-
-**原因**：MCP 客户端（Claude Desktop、Cursor 等）不会自动激活虚拟环境，它们直接调用配置中指定的 Python 解释器。
-
-**解决方案**：
-
-1. **推荐方案**：在全局 Python 中安装依赖
-
-    ```bash
-    pip install maafw fastmcp opencv-python
-    ```
-
-2. **备选方案**：在 MCP 配置中使用虚拟环境的 Python 完整路径
-    - Windows: 将 `"command": "python"` 改为 `"command": "C:/path/to/.venv/Scripts/python.exe"`
-    - macOS/Linux: 改为 `"command": "/path/to/.venv/bin/python"`
-
-3. **验证依赖**：
-
-    ```bash
-    # 使用配置中的 Python 路径测试
-    python -c "import maafw, fastmcp; print('Dependencies OK')"
-    ```
 
 ### 许可证
 
@@ -463,31 +352,9 @@ MaaMCP is a Model Context Protocol server that exposes MaaFramework's powerful a
 
 4. **Install Python dependencies**
 
-    **Important**: MCP clients need to access these dependencies. Two installation methods:
-
-    **Method A: Global installation (Recommended, works for all MCP clients)**
-
     ```bash
-    pip install maafw fastmcp opencv-python
+    pip install -r mcp_server/requirements.txt
     ```
-
-    **Method B: Virtual environment installation (Requires specifying venv Python path in config)**
-
-    ```bash
-    # Create virtual environment
-    python -m venv .venv
-
-    # Activate virtual environment
-    # Windows:
-    .venv\Scripts\activate
-    # macOS/Linux:
-    source .venv/bin/activate
-
-    # Install dependencies
-    pip install maafw fastmcp opencv-python
-    ```
-
-    If using Method B, you must specify the virtual environment's Python path in MCP configuration.
 
 #### Configure MCP Clients
 
@@ -517,20 +384,6 @@ Edit Claude Desktop configuration:
 }
 ```
 
-**Using virtual environment (Method B):**
-
-```json
-{
-  "mcpServers": {
-    "maa": {
-      "command": "C:/path/to/MaaMCP/.venv/Scripts/python.exe",
-      "args": ["-m", "mcp_server"],
-      "cwd": "C:/path/to/MaaMCP"
-    }
-  }
-}
-```
-
 ##### Cursor IDE
 
 Create or edit `.cursor/mcp.json` in project root:
@@ -549,20 +402,6 @@ Create or edit `.cursor/mcp.json` in project root:
 }
 ```
 
-**Using virtual environment (Method B):**
-
-```json
-{
-  "mcpServers": {
-    "MAA MCP": {
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-      "args": ["-m", "mcp_server"],
-      "cwd": "${workspaceFolder}"
-    }
-  }
-}
-```
-
 ##### Claude Code CLI
 
 Create or edit `.claude/settings.local.json` in project root:
@@ -574,20 +413,6 @@ Create or edit `.claude/settings.local.json` in project root:
   "mcpServers": {
     "maa": {
       "command": "python",
-      "args": ["-m", "mcp_server"],
-      "cwd": "${workspaceFolder}"
-    }
-  }
-}
-```
-
-**Using virtual environment (Method B):**
-
-```json
-{
-  "mcpServers": {
-    "maa": {
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
       "args": ["-m", "mcp_server"],
       "cwd": "${workspaceFolder}"
     }
@@ -683,20 +508,6 @@ MaaMCP/
 └── check_resource.py        # Resource validation tool
 ```
 
-#### Validate Resource Files
-
-```bash
-python check_resource.py assets/resource
-```
-
-#### Build Release Package
-
-```bash
-python install.py v1.0.0
-```
-
-The built package will be in the `install/` directory.
-
 ### Security Notes
 
 ⚠️ **Important Security Constraints**:
@@ -714,39 +525,6 @@ Ensure steps 3 and 4 were completed correctly:
 1. Check if `assets/MaaCommonAssets/OCR` directory exists
 2. Re-run `python configure.py`
 3. Verify `assets/resource/model/ocr` directory contains model files
-
-#### Python command not responding
-
-Windows 10/11 includes a "Python" that's just an installer. Download and install full Python from [python.org](https://www.python.org/).
-
-#### Missing vc_redist runtime library
-
-Download and install [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe).
-
-#### MCP server connection failed or "ModuleNotFoundError"
-
-This usually happens because the Python environment used by MCP clients doesn't have the required dependencies installed.
-
-**Cause**: MCP clients (Claude Desktop, Cursor, etc.) do not automatically activate virtual environments. They directly call the Python interpreter specified in the configuration.
-
-**Solutions**:
-
-1. **Recommended**: Install dependencies in global Python
-
-    ```bash
-    pip install maafw fastmcp opencv-python
-    ```
-
-2. **Alternative**: Use virtual environment's full Python path in MCP configuration
-    - Windows: Change `"command": "python"` to `"command": "C:/path/to/.venv/Scripts/python.exe"`
-    - macOS/Linux: Change to `"command": "/path/to/.venv/bin/python"`
-
-3. **Verify dependencies**:
-
-    ```bash
-    # Test using the Python path from your config
-    python -c "import maafw, fastmcp; print('Dependencies OK')"
-    ```
 
 ### License
 
