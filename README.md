@@ -56,10 +56,13 @@ Talk is cheap, 请看: **[🎞️ Bilibili 视频演示](https://www.bilibili.co
 #### 🎮 设备控制
 
 - `click` - 点击指定坐标（支持多触点/鼠标按键选择、长按）
+  - Windows 上支持指定鼠标按键：左键(0)、右键(1)、中键(2)
 - `double_click` - 双击指定坐标
 - `swipe` - 滑动手势
 - `input_text` - 输入文本
 - `click_key` - 按键操作（支持长按）
+  - Android 上可模拟系统按键：返回键(4)、Home键(3)、菜单键(82)、音量键等
+  - Windows 上支持虚拟按键码：回车(13)、ESC(27)、方向键等
 - `scroll` - 鼠标滚轮（仅 Windows）
 
 ### 快速开始
@@ -215,10 +218,13 @@ MaaMCP is a Model Context Protocol server that exposes MaaFramework's powerful a
 #### 🎮 Device Control
 
 - `click` - Click at coordinates (supports multi-touch/mouse button selection, long press)
+  - On Windows, supports mouse button selection: left(0), right(1), middle(2)
 - `double_click` - Double click at coordinates
 - `swipe` - Swipe gesture
 - `input_text` - Input text
 - `click_key` - Key press (supports long press)
+  - On Android, simulates system keys: Back(4), Home(3), Menu(82), Volume keys, etc.
+  - On Windows, supports virtual key codes: Enter(13), ESC(27), Arrow keys, etc.
 - `scroll` - Mouse wheel (Windows only)
 
 ### Quick Start
