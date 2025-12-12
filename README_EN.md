@@ -32,6 +32,8 @@ MaaMCP is a Model Context Protocol server that exposes MaaFramework's powerful a
 - 🎯 **Precise Operations** - Execute clicks, swipes, text input, key presses, and more
 - 📸 **Screenshots** - Capture real-time screenshots for visual analysis
 
+Talk is cheap, see: **[🎞️ Bilibili Video Demo](https://www.bilibili.com/video/BV1eGmhBaEZz/)**
+
 ## Features
 
 ### 🔍 Device Discovery & Connection
@@ -47,8 +49,8 @@ MaaMCP is a Model Context Protocol server that exposes MaaFramework's powerful a
 
 ### 👀 Screen Recognition
 
-- `ocr` - Optical Character Recognition (efficient, recommended)
-- `screencap` - Screenshot capture (use sparingly, high token cost)
+- `ocr` - Optical Character Recognition (efficient, recommended for priority use)
+- `screencap` - Screenshot capture (use as needed, high token cost)
 
 ### 🎮 Device Control
 
@@ -91,7 +93,7 @@ The repo includes `.claude/settings.local.json`. Restart Claude Code CLI to appl
 
 #### Other clients
 
-You can follow the Cursor/Claude Code config approach above. MaaMCP can be started with:
+Please refer to the Cursor or Claude Code configuration above. MaaMCP can be started with:
 
 ```shell
 cd MaaMCP
@@ -137,14 +139,6 @@ graph LR
 3. **Load** - Use `load_resource` to load OCR models (only needs to be loaded once)
 4. **Operate** - Execute OCR, click, swipe, etc. on multiple devices/windows by specifying different controller IDs
 
-## Security Notes
-
-⚠️ **Important Security Constraints**:
-
-- All ADB and window operations must go through MCP tools
-- Direct execution of `adb` commands or window handle APIs is prohibited
-- This ensures AI assistant operations are controlled and secure
-
 ## Notes
 
 📌 **Windows Automation Limitations**:
@@ -152,16 +146,15 @@ graph LR
 - Some games or applications with anti-cheat mechanisms may block background control operations
 - If the target application runs with administrator privileges, MaaMCP must also be launched with administrator privileges
 - Minimized windows are not supported; please keep the target window in a non-minimized state
+- If the default background screenshot/input methods are unavailable (e.g., empty screenshots, unresponsive operations), the AI assistant may attempt to switch to foreground methods, which will occupy the mouse and keyboard
 
 ## FAQ
 
 ### OCR recognition fails with "Failed to load det or rec"
 
-Ensure steps 3 and 4 were completed correctly:
-
-1. Check if `assets/MaaCommonAssets/OCR` directory exists
-2. Re-run `python configure.py`
-3. Verify `assets/resource/model/ocr` directory contains model files
+1. Check if model files exist in `assets/model/ocr/`
+2. Check if there are resource download errors in `assets/model/download.log`
+3. Manually run `python maa_mcp/download.py` to retry downloading
 
 ## License
 

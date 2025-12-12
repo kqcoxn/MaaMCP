@@ -139,14 +139,6 @@ graph LR
 3. **加载** - 使用 `load_resource` 加载 OCR 模型（只需加载一次）
 4. **操作** - 通过指定不同的控制器 ID，对多个设备/窗口执行 OCR、点击、滑动等自动化操作
 
-## 安全说明
-
-⚠️ **重要安全约束**：
-
-- 所有 ADB 和窗口操作必须通过 MCP 工具执行
-- 禁止直接执行 `adb` 命令或窗口句柄 API
-- 这确保了 AI 助手操作的可控性和安全性
-
 ## 注意事项
 
 📌 **Windows 自动化限制**：
@@ -160,11 +152,9 @@ graph LR
 
 ### OCR 识别失败，报错 "Failed to load det or rec"
 
-确保已正确执行步骤 3 和 4：
-
-1. 检查 `assets/MaaCommonAssets/OCR` 目录是否存在
-2. 重新运行 `python configure.py`
-3. 验证 `assets/resource/model/ocr` 目录包含模型文件
+1. 检查 `assets/model/ocr/` 中是否有模型文件
+2. 检查 `assets/model/download.log` 中是否出现资源下载异常
+3. 手动执行 `python maa_mcp/download.py` 再次尝试下载
 
 ## 许可证
 
