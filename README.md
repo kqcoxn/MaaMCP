@@ -11,7 +11,7 @@
 [![MaaFramework](https://img.shields.io/badge/MaaFramework-v5.2.3-green)](https://github.com/MaaXYZ/MaaFramework)
 [![Python](https://img.shields.io/badge/python-3.8+-blue)](https://www.python.org/)
 
-一个基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 的 Model Context Protocol (MCP) 服务器
+一个基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 的 MCP 服务器
 为 AI 助手提供 Android 设备和 Windows 桌面自动化能力
 
 [English](#english) | [中文](#中文)
@@ -24,13 +24,15 @@
 
 ### 简介
 
-MaaMCP 是一个 Model Context Protocol 服务器，将 MaaFramework 的强大自动化能力通过标准化的 MCP 接口暴露给 AI 助手（如 Claude）。通过本服务器，AI 助手可以：
+MaaMCP 是一个 MCP 服务器，将 MaaFramework 的强大自动化能力通过标准化的 MCP 接口暴露给 AI 助手（如 Claude）。通过本服务器，AI 助手可以：
 
 - 🤖 **Android 自动化** - 通过 ADB 连接并控制 Android 设备/模拟器
 - 🖥️ **Windows 自动化** - 控制 Windows 桌面应用程序
 - 👁️ **智能识别** - 使用 OCR 识别屏幕文字内容
 - 🎯 **精准操作** - 执行点击、滑动、文本输入、按键等操作
 - 📸 **屏幕截图** - 获取实时屏幕截图进行视觉分析
+
+Talk is cheap, 请看: **[🎞️ Bilibili 视频演示](https://www.bilibili.com/video/BV1eGmhBaEZz/)**
 
 ### 功能特性
 
