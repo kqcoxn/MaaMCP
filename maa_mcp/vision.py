@@ -57,7 +57,7 @@ def ocr(controller_id: str) -> Optional[Union[list, str]]:
     description="""
     对当前设备屏幕进行截图。
     参数：
-    - controller_id: 控制器 ID，由 connect_adb_device() 返回
+    - controller_id: 控制器 ID，由 connect_adb_device() 或 connect_window() 返回
     返回值：
     - 成功：返回截图文件的绝对路径，可通过 read_file 工具读取图片内容
     - 失败：返回 None

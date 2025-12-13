@@ -68,13 +68,13 @@ mcp = FastMCP(
     若使用 connect_window() 连接窗口后出现异常，可尝试切换截图/输入方式（需重新连接）：
 
     截图异常（画面为空、纯黑、花屏等）：
-      - 多尝试几次确认是否为偶发问题，不要一次失败就切换
+      - 多尝试几次（2~3次）确认是否为偶发问题，不要一次失败就切换
       - 若持续异常，按优先级切换截图方式重新连接：
         FramePool → PrintWindow → GDI → DXGI_DesktopDup_Window → ScreenDC
       - 最后手段：DXGI_DesktopDup（截取整个桌面，触控坐标会不正确，仅用于排查问题）
 
     键鼠操作无响应（操作后界面无变化）：
-      - 多尝试几次确认是否为偶发问题，不要一次失败就切换
+      - 多尝试几次（2~3次）确认是否为偶发问题，不要一次失败就切换
       - 若持续无响应，按优先级切换输入方式重新连接：
         鼠标：PostMessage → PostMessageWithCursorPos → Seize
         键盘：PostMessage → Seize

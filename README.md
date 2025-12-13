@@ -60,6 +60,8 @@ Talk is cheap, 请看: **[🎞️ Bilibili 视频演示](https://www.bilibili.co
 - `click_key` - 按键操作（支持长按）
   - Android 上可模拟系统按键：返回键(4)、Home键(3)、菜单键(82)、音量键等
   - Windows 上支持虚拟按键码：回车(13)、ESC(27)、方向键等
+- `keyboard_shortcut` - 键盘快捷键
+  - 支持组合键：Ctrl+C、Ctrl+V、Alt+Tab 等
 - `scroll` - 鼠标滚轮（仅 Windows）
 
 ## 快速开始

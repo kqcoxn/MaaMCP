@@ -60,6 +60,8 @@ Talk is cheap, see: **[🎞️ Bilibili Video Demo](https://www.bilibili.com/vid
 - `click_key` - Key press (supports long press)
   - On Android, simulates system keys: Back(4), Home(3), Menu(82), Volume keys, etc.
   - On Windows, supports virtual key codes: Enter(13), ESC(27), Arrow keys, etc.
+- `keyboard_shortcut` - Keyboard shortcuts
+  - Supports key combinations: Ctrl+C, Ctrl+V, Alt+Tab, etc.
 - `scroll` - Mouse wheel (Windows only)
 
 ## Quick Start

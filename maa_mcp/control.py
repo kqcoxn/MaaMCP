@@ -9,7 +9,7 @@ from maa_mcp.core import mcp, object_registry
     在设备屏幕上执行单点点击操作，支持长按。
 
     参数：
-    - controller_id: 控制器 ID，由 connect_adb_device() 返回
+    - controller_id: 控制器 ID，由 connect_adb_device() 或 connect_window() 返回
     - x: 目标点的 X 坐标（像素，整数）
     - y: 目标点的 Y 坐标（像素，整数）
     - button: 按键编号，默认为 0
@@ -43,7 +43,7 @@ def click(
     在设备屏幕上执行双击操作。
 
     参数：
-    - controller_id: 控制器 ID，由 connect_adb_device() 返回
+    - controller_id: 控制器 ID，由 connect_adb_device() 或 connect_window() 返回
     - x: 目标点的 X 坐标（像素，整数）
     - y: 目标点的 Y 坐标（像素，整数）
     - button: 按键编号，默认为 0
@@ -92,7 +92,7 @@ def double_click(
     在设备屏幕上执行手势滑动操作，模拟手指从起始点滑动到终点。
 
     参数：
-    - controller_id: 控制器 ID，由 connect_adb_device() 返回
+    - controller_id: 控制器 ID，由 connect_adb_device() 或 connect_window() 返回
     - start_x: 起始点的 X 坐标（像素，整数）
     - start_y: 起始点的 Y 坐标（像素，整数）
     - end_x: 终点的 X 坐标（像素，整数）
@@ -129,7 +129,7 @@ def swipe(
     在设备屏幕上执行输入文本操作。
 
     参数：
-    - controller_id: 控制器 ID，由 connect_adb_device() 返回
+    - controller_id: 控制器 ID，由 connect_adb_device() 或 connect_window() 返回
     - text: 要输入的文本（字符串）
 
     返回值：
@@ -153,7 +153,7 @@ def input_text(controller_id: str, text: str) -> bool:
     在设备屏幕上执行按键点击操作，支持长按。
 
     参数：
-    - controller_id: 控制器 ID，由 connect_adb_device() 返回
+    - controller_id: 控制器 ID，由 connect_adb_device() 或 connect_window() 返回
     - key: 要点击的按键（虚拟按键码）
     - duration: 按键持续时间（毫秒），默认为 50；设置较大值可实现长按
 
@@ -194,13 +194,58 @@ def click_key(controller_id: str, key: int, duration: int = 50) -> bool:
     return controller.post_key_up(key).wait().succeeded
 
 
+@mcp.tool(name="keyboard_shortcut", description="""
+    在设备屏幕上执行键盘快捷键操作。
+
+    参数：
+    - controller_id: 控制器 ID，由 connect_adb_device() 或 connect_window() 返回
+    - modifiers: 修饰键列表（虚拟按键码），支持多个修饰键
+    - primary_key: 主键（虚拟按键码）
+    - duration: 按键持续时间（毫秒），默认为 50；设置较大值可实现长按
+
+    返回值：
+    - 成功：返回 True
+    - 失败：返回 False
+
+    常用按键值：
+    修饰键（Windows Virtual-Key Codes）：
+      - Left Shift: 160 (0xA0)
+      - Left Ctrl: 162 (0xA2)
+      - Left Alt: 164 (0xA4)
+      - Left Windows: 91 (0x5B)
+
+    注意：该方法仅对 Windows 窗口控制器，且在 Seize 控制方式下有效，其他控制方式不支持。
+""")
+def keyboard_shortcut(
+    controller_id: str, modifiers: list[int], primary_key: int, duration: int = 50
+) -> bool:
+    controller = object_registry.get(controller_id)
+    if not controller:
+        return False
+
+    for modifier in modifiers:
+        if not controller.post_key_down(modifier).wait().succeeded:
+            return False
+
+    if not controller.post_key_down(primary_key).wait().succeeded:
+        return False
+    time.sleep(duration / 1000.0)
+    if not controller.post_key_up(primary_key).wait().succeeded:
+        return False
+
+    for modifier in modifiers:
+        if not controller.post_key_up(modifier).wait().succeeded:
+            return False
+    return True
+
+
 @mcp.tool(
     name="scroll",
     description="""
     在设备屏幕上执行鼠标滚轮操作。
 
     参数：
-    - controller_id: 控制器 ID，由 connect_adb_device() 返回
+    - controller_id: 控制器 ID，由 connect_adb_device() 或 connect_window() 返回
     - x: 滚动的 X 坐标（像素，建议传入 120 的整数倍以获得最佳兼容性）
     - y: 滚动的 Y 坐标（像素，建议传入 120 的整数倍以获得最佳兼容性）
 
@@ -216,4 +261,3 @@ def scroll(controller_id: str, x: int, y: int) -> bool:
     if not controller:
         return False
     return controller.post_scroll(x, y).wait().succeeded
-
