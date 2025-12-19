@@ -355,17 +355,17 @@ def save_pipeline(
             else:
                 filepath = filepath / f"pipeline_{timestamp}.json"
     else:
-        # 默认保存到用户的 Downloads 目录
-        downloads_dir = Path.home() / "Downloads"
-        downloads_dir.mkdir(parents=True, exist_ok=True)
+        # 默认保存到用户的 Documents/MaaMCP 目录
+        maamcp_dir = Path.home() / "Documents" / "MaaMCP"
+        maamcp_dir.mkdir(parents=True, exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         if name:
             # 清理名称中的非法字符
             safe_name = "".join(c for c in name if c.isalnum() or c in "._- ")
             safe_name = safe_name.strip()[:50] or "pipeline"
-            filepath = downloads_dir / f"{safe_name}_{timestamp}.json"
+            filepath = maamcp_dir / f"{safe_name}_{timestamp}.json"
         else:
-            filepath = downloads_dir / f"pipeline_{timestamp}.json"
+            filepath = maamcp_dir / f"pipeline_{timestamp}.json"
 
     # 检查文件是否已存在
     if filepath.exists() and not overwrite:
@@ -494,23 +494,30 @@ def open_pipeline_in_browser(pipeline_file_path: str) -> None:
     if not file_path.is_file():
         raise ValueError(f"路径不是文件: {pipeline_file_path}")
 
-    # 提取文件名
-    file_name = file_path.name
-
-    # 推断起始目录
+    # 推断起始目录和文件名
     lower_path = str(file_path).lower()
     if "downloads" in lower_path or "download" in lower_path or "下载" in lower_path:
         start_dir = "downloads"
+        file_name = file_path.name
     elif "documents" in lower_path or "docs" in lower_path or "文档" in lower_path:
         start_dir = "documents"
+        # 检查是否在 MaaMCP 子目录中
+        if "maamcp" in lower_path:
+            file_name = f"MaaMCP/{file_path.name}"
+        else:
+            file_name = file_path.name
     elif "desktop" in lower_path or "桌面" in lower_path:
         start_dir = "desktop"
+        file_name = file_path.name
     elif "music" in lower_path or "音乐" in lower_path:
         start_dir = "music"
+        file_name = file_path.name
     elif "pictures" in lower_path or "图片" in lower_path:
         start_dir = "pictures"
+        file_name = file_path.name
     elif "videos" in lower_path or "视频" in lower_path:
         start_dir = "videos"
+        file_name = file_path.name
     else:
         # 无法推断起始目录
         raise ValueError(
